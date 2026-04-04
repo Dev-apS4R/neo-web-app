@@ -2,13 +2,14 @@ from flask import Flask, render_template, request, redirect, url_for, session, j
 import os
 import datetime
 from dotenv import load_dotenv
+
+# Load environment variables FIRST
+load_dotenv()
+
 from neo_vault import NeoVault
 from neo_email import NeoEmailSystem
 import pyotp
 from config import EMAIL_CONFIG
-
-# Load environment variables
-load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
