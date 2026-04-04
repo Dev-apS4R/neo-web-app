@@ -106,13 +106,18 @@ class NeoEmailSystem:
 
     def _send_email(self, to_email: str, subject: str, html_body: str, text_body: str):
         """Send email via SMTP."""
+        print(f"DEBUG EMAIL: Attempting to send email to {to_email}")
+
         if not self.email_config.get("enabled", False):
+            print("DEBUG EMAIL: Email system is disabled")
             raise Exception("Email system disabled")
 
         smtp_server = self.email_config["smtp_server"]
         smtp_port = self.email_config["smtp_port"]
         sender_email = self.email_config["sender_email"]
         sender_password = self.email_config["sender_password"]
+
+        print(f"DEBUG EMAIL: SMTP {smtp_server}:{smtp_port}, From: {sender_email}")
 
         msg = MIMEMultipart('alternative')
         msg['Subject'] = subject
@@ -124,11 +129,18 @@ class NeoEmailSystem:
         if html_body:
             msg.attach(MIMEText(html_body, 'html'))
 
-        server = smtplib.SMTP(smtp_server, smtp_port)
         try:
+            print("DEBUG EMAIL: Connecting to SMTP server...")
+            server = smtplib.SMTP(smtp_server, smtp_port)
             server.starttls()
+            print("DEBUG EMAIL: Attempting login...")
             server.login(sender_email, sender_password)
+            print("DEBUG EMAIL: Sending email...")
             server.sendmail(sender_email, to_email, msg.as_string())
+            print("DEBUG EMAIL: Email sent successfully!")
+        except Exception as e:
+            print(f"DEBUG EMAIL: ERROR - {str(e)}")
+            raise e
         finally:
             server.quit()
 
