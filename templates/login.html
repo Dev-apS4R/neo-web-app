@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - NEO Web Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #2a2a2a;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,255,0,0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            text-align: center;
+            color: #39ff14;
+            margin-bottom: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #cccccc;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background-color: #333;
+            color: #ffffff;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus, input[type="password"]:focus {
+            outline: none;
+            border-color: #39ff14;
+            box-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
+        }
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #39ff14;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+        button:hover {
+            background-color: #2ecc71;
+        }
+        .alert {
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .alert-error {
+            background-color: #e74c3c;
+            color: #ffffff;
+        }
+        .register-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .register-link a {
+            color: #39ff14;
+            text-decoration: none;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>NEO Login</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-error">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            {% if requires_2fa %}
+            <div class="form-group">
+                <label for="totp_code">2FA Code</label>
+                <input type="text" id="totp_code" name="totp_code" required>
+                <input type="hidden" name="user_id" value="{{ user_id }}">
+            </div>
+            {% endif %}
+            <button type="submit">Login</button>
+        </form>
+        <div class="register-link">
+            <a href="{{ url_for('forgot_password') }}">Forgot Password?</a><br>
+            <a href="{{ url_for('register') }}">Don't have an account? Register</a>
+        </div>
+    </div>
+</body>
+</html>

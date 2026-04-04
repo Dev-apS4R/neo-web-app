@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEO Web Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        p {
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to NEO Web Platform</h1>
+        <p>Sim Racing AI Companion - Web Edition</p>
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="{{ url_for('login') }}" style="background-color: #39ff14; color: #000; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 4px; margin-right: 1rem;">Login</a>
+            <a href="{{ url_for('register') }}" style="background-color: #333; color: #39ff14; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 4px; border: 1px solid #39ff14;">Register</a>
+        </div>
+    </div>
+</body>
+</html>

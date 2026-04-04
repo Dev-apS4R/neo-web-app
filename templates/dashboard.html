@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - NEO Web Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #2a2a2a;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .header h1 {
+            color: #39ff14;
+            margin: 0;
+        }
+        .logout-btn {
+            background-color: #e74c3c;
+            color: #ffffff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .section {
+            background-color: #2a2a2a;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,255,0,0.1);
+        }
+        .section h2 {
+            color: #39ff14;
+            margin-top: 0;
+            border-bottom: 2px solid #39ff14;
+            padding-bottom: 0.5rem;
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .skill-card {
+            background-color: #333;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #39ff14;
+        }
+        .skill-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .skill-rating {
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+        .progress-bar {
+            background-color: #444;
+            height: 8px;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #39ff14;
+            border-radius: 4px;
+        }
+        .sessions-list {
+            list-style: none;
+            padding: 0;
+        }
+        .session-item {
+            background-color: #333;
+            margin-bottom: 0.5rem;
+            padding: 1rem;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .session-info {
+            flex-grow: 1;
+        }
+        .session-mode {
+            font-weight: bold;
+            color: #39ff14;
+        }
+        .session-time {
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+        .session-duration {
+            color: #ffffff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>NEO Dashboard</h1>
+        <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    </div>
+    <div class="container">
+        <div class="section">
+            <h2>User Skills</h2>
+            <div class="skills-grid">
+                {% for skill in skills %}
+                <div class="skill-card">
+                    <div class="skill-name">{{ skill.skill_name }}</div>
+                    <div class="skill-rating">Rating: {{ "%.1f"|format(skill.rating) }}/10.0</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: {{ (skill.rating / 10) * 100 }}%"></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="section">
+            <h2>Recent Sessions</h2>
+            <ul class="sessions-list">
+                {% for session in sessions %}
+                <li class="session-item">
+                    <div class="session-info">
+                        <div class="session-mode">{{ session.mode }} ({{ session.game }})</div>
+                        <div class="session-time">{{ session.started_at }}</div>
+                    </div>
+                    <div class="session-duration">{{ "%.1f"|format(session.duration_s) }}s</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
