@@ -1,0 +1,34 @@
+# Additional ignores for NEO Web App
+# (GitHub's Python template already covers most Python files)
+
+# Environment files (CRITICAL - never commit these!)
+.env
+.env.local
+.env.production
+.env.staging
+.env.railway
+.env*
+
+# Database files (if any local SQLite files)
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
