@@ -16,7 +16,7 @@ app.secret_key = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
 
 # Initialize systems
 vault = NeoVault()
-print(f"DEBUG: Email config - Enabled: {EMAIL_CONFIG.get('enabled')}, Email: {(EMAIL_CONFIG.get('sender_email') or 'None')[:3]}...")
+# print(f"DEBUG: Email config - Enabled: {EMAIL_CONFIG.get('enabled')}, Email: {(EMAIL_CONFIG.get('sender_email') or 'None')[:3]}...")
 email_system = NeoEmailSystem(vault, EMAIL_CONFIG)
 email_system.start()
 
