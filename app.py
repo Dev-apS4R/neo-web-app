@@ -16,8 +16,8 @@ app.secret_key = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
 
 # Initialize systems
 vault = NeoVault()
+print("EMAIL_PROVIDER:", os.getenv('NEO_EMAIL_PROVIDER'))
 email_system = NeoEmailSystem(vault, EMAIL_CONFIG)
-print("EMAIL_CONFIG:", EMAIL_CONFIG)
 email_system.start()
 
 @app.route('/')
