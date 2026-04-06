@@ -3,7 +3,7 @@ import os
 import datetime
 from dotenv import load_dotenv
 
-# Load environment variables FIRST
+# Load environment variables BEFORE importing config
 load_dotenv()
 
 from neo_vault import NeoVault
@@ -16,8 +16,8 @@ app.secret_key = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
 
 # Initialize systems
 vault = NeoVault()
-# print(f"DEBUG: Email config - Enabled: {EMAIL_CONFIG.get('enabled')}, Email: {(EMAIL_CONFIG.get('sender_email') or 'None')[:3]}...")
 email_system = NeoEmailSystem(vault, EMAIL_CONFIG)
+print("EMAIL_CONFIG:", EMAIL_CONFIG)
 email_system.start()
 
 @app.route('/')
@@ -204,6 +204,4 @@ def logout():
     return redirect(url_for('home'))
 
 if __name__ == '__main__':
-    # Production deployment configuration
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(debug=True)
