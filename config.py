@@ -1,16 +1,29 @@
 import os
 
-# Email config for local testing
-EMAIL_CONFIG = {
-    "sender_email": os.getenv("NEO_EMAIL", "test@example.com"),
-    "sender_password": os.getenv("NEO_EMAIL_PASS", "testpass"),
-    "smtp_server": os.getenv("NEO_SMTP_SERVER", "smtp.gmail.com"),
-    "smtp_port": int(os.getenv("NEO_SMTP_PORT", 587)),
-    "enabled": os.getenv("NEO_EMAIL_ENABLED", "false").lower() == "true"
+# Email provider selection (MailerCloud only)
+EMAIL_PROVIDER = "mailercloud"  # hardcoded to MailerCloud
+
+# MailerCloud config
+MAILER_CLOUD_CONFIG = {
+    "api_key": os.getenv("UdYyf-93e7c4eaab787b17a6b553c3fe1af597-0b6d88cf891c6188b3978b8720f57d71", ""),
+    "sender_email": os.getenv("neo.system@neoracer.in", "hello@neoracer.in"),
+    "sender_name": os.getenv("NEO System", "NEO System"),
+    "enabled": os.getenv("NEO_MAILERCLOUD_ENABLED", "false").lower() == "true"
 }
 
-# For local testing without real email, you can enable and use Gmail
-# Set these environment variables:
-# NEO_EMAIL_ENABLED=true
-# NEO_EMAIL=your_gmail@gmail.com
-# NEO_EMAIL_PASS=your_app_password (not regular password - generate app password in Gmail settings)
+# Unified email config - MailerCloud only
+def get_email_config():
+    return {
+        "provider": "mailercloud",
+        **MAILER_CLOUD_CONFIG
+    }
+
+EMAIL_CONFIG = get_email_config()
+
+# For MailerCloud:
+# NEO_EMAIL_PROVIDER=mailercloud
+# NEO_MAILERCLOUD_ENABLED=true
+# NEO_MAILERCLOUD_API_KEY=your_api_key_here
+# NEO_MAILERCLOUD_SENDER_EMAIL=verified_sender@yourdomain.com
+# NEO_MAILERCLOUD_SENDER_NAME=NEO System
+
