@@ -12,7 +12,7 @@ import pyotp
 from config import EMAIL_CONFIG
 
 app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY', 'd5bcfffe053e1f7be1911665161e086980e2dab12fe8015e376b0def622f785b')
+app.secret_key = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
 
 # Initialize systems
 vault = NeoVault()
