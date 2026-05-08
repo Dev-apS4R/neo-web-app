@@ -1,28 +1,22 @@
 import os
 
-# Email provider selection (MailerCloud only)
-EMAIL_PROVIDER = "mailercloud"  # hardcoded to MailerCloud
+# Email provider selection
+EMAIL_PROVIDER = "zohomail"
 
-# MailerCloud config
-MAILER_CLOUD_CONFIG = {
-    "api_key": os.getenv("NEO_MAILERCLOUD_API_KEY", ""),
-    "sender_email": os.getenv("NEO_MAILERCLOUD_SENDER_EMAIL", "hello@neoracer.in"),
-    "sender_name": os.getenv("NEO_MAILERCLOUD_SENDER_NAME", "NEO System"),
-    "enabled": os.getenv("NEO_MAILERCLOUD_ENABLED", "false").lower() == "true"
+# Zoho Mail SMTP config
+ZOHO_MAIL_CONFIG = {
+    "smtp_server": os.getenv("NEO_SMTP_SERVER", "smtp.zoho.com"),
+    "smtp_port": int(os.getenv("NEO_SMTP_PORT", 587)),
+    "sender_email": os.getenv("NEO_SENDER_EMAIL", "hello@neoracer.in"),
+    "sender_password": os.getenv("NEO_SENDER_PASSWORD", ""),
+    "enabled": os.getenv("NEO_EMAIL_ENABLED", "true").lower() == "true"
 }
 
-# Unified email config - MailerCloud only
+# Unified email config
 def get_email_config():
     return {
-        "provider": "mailercloud",
-        **MAILER_CLOUD_CONFIG
+        "provider": "zohomail",
+        **ZOHO_MAIL_CONFIG
     }
 
 EMAIL_CONFIG = get_email_config()
-
-# For MailerCloud:
-# NEO_EMAIL_PROVIDER=mailercloud
-# NEO_MAILERCLOUD_ENABLED=true
-# NEO_MAILERCLOUD_API_KEY=your_api_key_here
-# NEO_MAILERCLOUD_SENDER_EMAIL=verified_sender@yourdomain.com
-# NEO_MAILERCLOUD_SENDER_NAME=NEO System
